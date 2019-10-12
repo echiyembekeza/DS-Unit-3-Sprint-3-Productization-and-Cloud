@@ -15,6 +15,7 @@ pandas = "*"
 seaborn = "*"
 matplotlib = "*"
 python-decouple = "*"
+openaq = "*"
 
 [requires]
 python_version = "3.7"
