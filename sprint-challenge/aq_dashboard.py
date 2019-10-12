@@ -11,13 +11,9 @@ APP = Flask(__name__)
 APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 APP.config['ENV'] = getenv('FLASK_ENV')
 DB = SQLAlchemy(APP)
+API = openaq.OpenAQ()
 DB.init_app(APP)
 
-@APP.route('/', methods=['GET'])
-def root():
-    """Base view."""
-    records = Record.query.filter(Record.value >= 10).all()
-    return str(records)
 
 class Record(DB.Model):
     id = DB.Column(DB.Integer, primary_key=True)
@@ -26,6 +22,13 @@ class Record(DB.Model):
 
     def __repr__(self):
         return "date: {}, value: {}".format(self.datetime, self.value)
+
+@APP.route('/', methods=['GET'])
+def root():
+    """Base view."""
+    records = Record.query.filter(Record.value >= 10).all()
+    return str(records)
+
 
 @APP.route('/refresh')
 def refresh():
