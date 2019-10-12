@@ -14,6 +14,12 @@ APP.config['ENV'] = getenv('FLASK_ENV')
 DB = SQLAlchemy(APP)
 DB.init_app(APP)
 
+@APP.route('/', methods=['GET'])
+def root():
+    """Base view."""
+    records = Record.query.filter(Record.value >= 10).all()
+    return str(records)
+
 class Record(DB.Model):
     id = DB.Column(DB.Integer, primary_key=True)
     datetime = DB.Column(DB.String(25))
@@ -21,8 +27,6 @@ class Record(DB.Model):
 
     def __repr__(self):
         return "date: {}, value: {}".format(self.datetime, self.value)
-
-
 
 @APP.route('/refresh')
 def refresh():
