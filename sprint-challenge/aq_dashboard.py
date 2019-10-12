@@ -59,3 +59,4 @@ def refresh():
         DB.session.add(db_item)
     DB.session.commit()
     return 'Data refreshed!'
+APP.run()
