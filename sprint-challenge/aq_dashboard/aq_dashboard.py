@@ -3,12 +3,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from decouple import config
 from os import getenv
-from openaq import ApiError, OpenAQ, API
+import openaq
 import requests
 #import DB
 
 APP = Flask(__name__)
-
 APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 APP.config['ENV'] = getenv('FLASK_ENV')
 DB = SQLAlchemy(APP)
@@ -33,23 +32,24 @@ def refresh():
     """Pull fresh data from Open AQ and replace existing data."""
     DB.drop_all()
     DB.create_all()
-    api = openaq.OpenAQ()
-    status, body = api.measurements(city='Los Angeles',
-                                    parameter = 'pm25')
-    dicts = body['results'][:100]
-
-    tuples = []
-    n = 0
-    for item in dicts:
-        tuple = (str(dicts[n]['date']['utc']), dicts[n]['value'])
-        tuples.append(tuple)
-        n = n+1
-
-    n = 0
-    for item in tuples:
-        newrecord = Record(id = n, datetime = tuples[n][0], value = tuples[n][1])
-        DB.session.add(newrecord)
-        n = n+1
-
+    add_data()
     DB.session.commit()
     return 'Data refreshed!'
+def get_data(val_list):
+    mmnt = API.measurements(city='Los Angeles', parameter='pm25')
+    body = mmnt[1]
+    results = body['results'][:100]
+    for i in results:
+        val_list.append((i['date']['utc'], i['value']))
+    return val_list
+def add_data():
+    utc_val = []
+    get_data(utc_val)
+    n = 0
+    for i in utc_val:
+        utc = i[0]
+        val = i[1]
+        val_utc = Record(id=n, datetime=str(utc), value=val)
+        n += 1
+        DB.session.add(val_utc)
+    DB.session.commit()
