@@ -23,20 +23,6 @@ class Record(DB.Model):
         return "date: {}, value: {}".format(self.datetime, self.value)
 
 
-@APP.route('/')
-def root():
-    """Base view."""
-    """api = openaq.OpenAQ()
-    status, body = api.measurements(city='Los Angeles',
-                                    parameter = 'pm25')
-    dicts = body['results'][:100]
-    tuples = []
-    n = 0
-    for item in dicts:
-        tuple = (dicts[n]['date']['utc'], dicts[n]['value'])
-        tuples.append(tuple)
-        n = n+1"""
-    return str(Record.query.filter(Record.value >= 10).all())
 
 @APP.route('/refresh')
 def refresh():
