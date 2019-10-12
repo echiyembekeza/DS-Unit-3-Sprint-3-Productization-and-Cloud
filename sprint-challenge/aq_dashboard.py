@@ -59,4 +59,6 @@ def refresh():
         DB.session.add(db_item)
     DB.session.commit()
     return 'Data refreshed!'
-APP.run()
+
+if __name__ == "__main__":
+    APP.run()
