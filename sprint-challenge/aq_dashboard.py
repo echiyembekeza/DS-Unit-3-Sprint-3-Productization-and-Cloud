@@ -8,7 +8,6 @@ import requests
 
 APP = Flask(__name__)
 APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-APP.config['ENV'] = getenv('FLASK_ENV')
 DB = SQLAlchemy(APP)
 
 
