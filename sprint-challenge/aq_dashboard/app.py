@@ -1,8 +1,10 @@
 """OpenAQ Air Quality Dashboard with Flask."""
-from flask import Flask
+from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
+from decouple import config
 from os import getenv
 import openaq
+import DB
 
 APP = Flask(__name__)
 
