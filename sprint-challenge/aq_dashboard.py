@@ -12,7 +12,7 @@ DB = SQLAlchemy(APP)
 
 
 API = openaq.OpenAQ()
-status, body = API.measurements(city='Los Angeles', parameter='pm25')
+k = API.measurements(city='Los Angeles', parameter='pm25')
 def LAquery(k):
     LAresults = k['results']
     values = []
