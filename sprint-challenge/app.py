@@ -1,8 +1,8 @@
 """OpenAQ Air Quality Dashboard with Flask."""
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from os import getenv
-import openaq
+#from flask_sqlalchemy import SQLAlchemy
+#from os import getenv
+#import openaq
 
 APP = Flask(__name__)
 
