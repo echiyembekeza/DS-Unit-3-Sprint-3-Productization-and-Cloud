@@ -1,10 +1,10 @@
 """OpenAQ Air Quality Dashboard with Flask."""
-from flask import Flask
+from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from decouple import config
 from os import getenv
-import openaq 
-import requests
+import openaq
+
 
 APP = Flask(__name__)
 APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
@@ -29,7 +29,7 @@ class Record(DB.Model):
     value = DB.Column(DB.Float, nullable=False)
 
     def __repr__(self):
-        return "<id={self.id}, datetime={self.datetime}, value={self.value}>"
+        return f"<id={self.id}, datetime={self.datetime}, value={self.value}>"
 
 @APP.route('/')
 def root():
