@@ -12,9 +12,10 @@ DB = SQLAlchemy(APP)
 
 
 API = openaq.OpenAQ()
-k = API.measurements(city='Los Angeles', parameter='pm25')
+mment = API.measurements(city='Los Angeles', parameter='pm25')
+body = mment[1]
 def LAquery(k):
-    LAresults = k['results']
+    LAresults = body['results']
     values = []
     for k in LAresults:
         kvalue = k.get('value')
