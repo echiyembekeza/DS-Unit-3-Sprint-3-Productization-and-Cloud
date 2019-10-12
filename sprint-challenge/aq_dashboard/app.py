@@ -3,7 +3,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from decouple import config
 from os import getenv
-import openaq
+from openaq import ApiError, OpenAQ, API
 import requests
 #import DB
 
