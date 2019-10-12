@@ -22,3 +22,4 @@ class Record(DB.Model):
 
 @APP.route('/')
 def root():
+    """Base view."""
