@@ -5,7 +5,6 @@ from decouple import config
 from os import getenv
 import openaq
 import requests
-import DB
 
 APP = Flask(__name__)
 APP.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
