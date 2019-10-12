@@ -26,7 +26,7 @@ class Record(DB.Model):
 @APP.route('/')
 def root():
     """Base view."""
-    api = openaq.OpenAQ()
+    """api = openaq.OpenAQ()
     status, body = api.measurements(city='Los Angeles',
                                     parameter = 'pm25')
     dicts = body['results'][:100]
@@ -35,7 +35,7 @@ def root():
     for item in dicts:
         tuple = (dicts[n]['date']['utc'], dicts[n]['value'])
         tuples.append(tuple)
-        n = n+1
+        n = n+1"""
     return str(Record.query.filter(Record.value >= 10).all())
 
 @APP.route('/refresh')
