@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from decouple import config
 from os import getenv
 import openaq
-import DB
+#import DB
 
 APP = Flask(__name__)
 
